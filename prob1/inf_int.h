@@ -2,11 +2,14 @@
 #define _INF_INT_H_
 
 #include <iostream>
+#include "ostream"
+#include "string"
+using namespace std;
 
 class inf_int
 {
 private :
-    char* digits;  // You may modify this to "string digits;" if you want.
+    string digits;  // You may modify this to "string digits;" if you want.
     unsigned int length;
     bool thesign;   // true if positive , false if negative.
     // ex) 15311111111111111 -> digits="11111111111111351", length=17, thesign=true;
