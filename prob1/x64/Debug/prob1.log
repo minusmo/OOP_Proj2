@@ -1,7 +1,7 @@
 ﻿  inf_int.cpp
-C:\Users\hojooneum\Documents\OOP\proj2\prob1\inf_int.cpp(1,10): error C3873: '0x2028': 이 문자는 식별자의 첫 문자로 사용할 수 없습니다.
-C:\Users\hojooneum\Documents\OOP\proj2\prob1\inf_int.cpp(1,10): error C3872: '0x2028': 식별자에는 이 문자를 사용할 수 없습니다.
-C:\Users\hojooneum\Documents\OOP\proj2\prob1\inf_int.cpp(1,10): error C2006: '#include': "FILENAME" 또는 <FILENAME>이 필요합니다.
-C:\Users\hojooneum\Documents\OOP\proj2\prob1\inf_int.cpp(1,10): fatal  error C1083: 포함 파일을 열 수 없습니다. '': No such file or directory
+C:\Users\hojooneum\Documents\OOP\proj2\prob1\inf_int.cpp(80,15): warning C4101: 'i' :참조되지 않은 지역 변수입니다.
+C:\Users\hojooneum\Documents\OOP\proj2\prob1\inf_int.cpp(96,15): warning C4101: 'i' :참조되지 않은 지역 변수입니다.
+C:\Users\hojooneum\Documents\OOP\proj2\prob1\inf_int.cpp(155,15): warning C4101: 'i' :참조되지 않은 지역 변수입니다.
   main.cpp
   코드를 생성하고 있습니다...
+  prob1.vcxproj -> C:\Users\hojooneum\Documents\OOP\proj2\x64\Debug\prob1.exe
