@@ -1,7 +1,4 @@
 #include "inf_int.h"
-#include <iostream>
-#include <string.h>
-#include <stdlib.h>
 #include <stdlib.h>
 
 using namespace std;
@@ -16,12 +13,9 @@ int main()
 	inf_int g(f);
 
 	// cin >> g ;   // not required
-
 	a=b*c;
 	// e=g/f;       // not required
-
 	b=c-d;
-
 
 	if (f==d) {
 		cout << "a : " << a << endl;
