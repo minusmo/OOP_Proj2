@@ -66,12 +66,12 @@ inf_int::inf_int(const char* str) {
 	}
 
 	size_t strLen = strlen(str);
-	int i = 0;
+	
 	this->digits = string();
-	for (; i < strLen; i++) {
+	for (int i = 0; i < strLen; i++) {
 		this->digits.push_back(str[strLen - 1 - i]);
 	}
-
+	
 	this->length = (unsigned int)strLen;
 }
 
@@ -323,7 +323,7 @@ inf_int operator*(const inf_int& a, const inf_int& b)
 		c.thesign = false;
 	}
 
-	c.digits = string(a.length+b.length,0);
+	c.digits = string(a.length + b.length,0);
 
 	for (int i = 0; i < (int)a.length; i++) {
 		for (int j = 0; j < (int)b.length; j++) {
