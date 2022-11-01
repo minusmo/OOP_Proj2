@@ -66,18 +66,17 @@ inf_int::inf_int(const char* str) {
 	}
 
 	size_t strLen = strlen(str);
-	int i = 0;
+	
 	this->digits = string();
-	for (; i < strLen; i++) {
+	for (int i = 0; i < strLen; i++) {
 		this->digits.push_back(str[strLen - 1 - i]);
 	}
-
+	
 	this->length = (unsigned int)strLen;
 }
 
 inf_int::inf_int(const inf_int& ex_inf_int) {
 	this->digits = string();
-	unsigned int i;
 	for (auto digit : ex_inf_int.digits) {
 		this->digits.push_back(digit);
 	}
@@ -93,7 +92,6 @@ inf_int::~inf_int() {
 inf_int& inf_int::operator=(const inf_int& ex_inf_int)
 {
 	this->digits = string();
-	unsigned int i;
 	for (auto digit : ex_inf_int.digits) {
 		this->digits.push_back(digit);
 	}
@@ -152,7 +150,6 @@ bool operator<(const inf_int& a, const inf_int& b)
 inf_int operator+(const inf_int& a, const inf_int& b)
 {
 	inf_int c;
-	unsigned int i;
 
 	if (a.thesign == b.thesign) {	// 이항의 부호가 같을 경우 + 연산자로 연산
 		c.digits = string();
@@ -246,12 +243,17 @@ inf_int operator-(const inf_int& a, const inf_int& b)
 			}
 
 			c.length = (unsigned int)c.digits.length();
-			c.thesign = b.thesign;
+			if (a.thesign) {
+				c.thesign = false;
+			}
+			else {
+				c.thesign = true;
+			}
 			return c;
 		}
 		else {
-			inf_int d = a;
-			d.thesign = b.thesign;
+			inf_int d = b;
+			d.thesign = a.thesign;
 			c = b + d;
 			return c;
 		}
@@ -323,7 +325,7 @@ inf_int operator*(const inf_int& a, const inf_int& b)
 		c.thesign = false;
 	}
 
-	c.digits = string(a.length+b.length,0);
+	c.digits = string(a.length + b.length,0);
 
 	for (int i = 0; i < (int)a.length; i++) {
 		for (int j = 0; j < (int)b.length; j++) {

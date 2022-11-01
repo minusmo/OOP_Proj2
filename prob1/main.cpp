@@ -3,6 +3,7 @@
 
 using namespace std;
 
+void test();
 int main()
 {
 	inf_int a, e;
@@ -27,6 +28,22 @@ int main()
 		// cout << "g : " << g << endl;
 	}
 
+	test();
+
 	return 0;
 }
 
+void test() {
+	// more tests
+	inf_int h("345");
+	inf_int i("1111111111111111111111111111111111111111111111111111");
+	inf_int j("333333333333333333333333");
+	inf_int k("73755");
+	inf_int l("25555555555551111");
+	inf_int m("21111111111");
+
+	cout << "More tests" << endl;
+	cout << h - i << endl;
+	cout << j * k << endl;
+	cout << l + m << endl;
+}
