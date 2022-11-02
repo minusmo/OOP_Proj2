@@ -22,8 +22,7 @@ inf_int::inf_int() {
 }
 
 inf_int::inf_int(int n) {
-	char buffer[100];
-
+	string buff;
 	if (n < 0) {
 		this->thesign = false;
 		n = -n;
@@ -35,7 +34,7 @@ inf_int::inf_int(int n) {
 	int i = 0;
 	while (n > 0)
 	{
-		buffer[i] = n % 10 + '0';
+		buff.push_back(n % 10 + '0');
 		n /= 10;
 		i++;
 	}
@@ -44,16 +43,8 @@ inf_int::inf_int(int n) {
 		new (this) inf_int();
 	}
 	else {
-		buffer[i] = '\0';
-
-		this->digits = string();
+		this->digits = buff;
 		this->length = i;
-
-		int j;
-		for (j = 0; j < i + 1; j++) {
-			if (buffer[j] == '\0') break;
-			this->digits.push_back(buffer[j]);
-		}
 	}
 }
 
@@ -68,7 +59,7 @@ inf_int::inf_int(const char* str) {
 	size_t strLen = strlen(str);
 
 	this->digits = string();
-	for (int i = 0; i < strLen; i++) {
+	for (int i = 0; i < (int)strLen; i++) {
 		this->digits.push_back(str[strLen - 1 - i]);
 	}
 
@@ -86,7 +77,7 @@ inf_int::inf_int(const inf_int& ex_inf_int) {
 }
 
 inf_int::~inf_int() {
-
+	// do nothing because we don't use dynamic allocated member variables
 }
 
 inf_int& inf_int::operator=(const inf_int& ex_inf_int)
@@ -150,8 +141,8 @@ bool operator<(const inf_int& a, const inf_int& b)
 inf_int operator+(const inf_int& a, const inf_int& b)
 {
 	inf_int c;
-
-	if (a.thesign == b.thesign) {	// 이항의 부호가 같을 경우 + 연산자로 연산
+	// 이항의 부호가 같을 경우 + 연산자로 연산
+	if (a.thesign == b.thesign) {
 		c.digits = string();
 		if (a.length < b.length) {
 			int carry = 0;
@@ -200,7 +191,8 @@ inf_int operator+(const inf_int& a, const inf_int& b)
 
 		return c;
 	}
-	else {	// 이항의 부호가 다를 경우 - 연산자로 연산
+	else {
+		// 이항의 부호가 다를 경우 - 연산자로 연산
 		c = b;
 		c.thesign = a.thesign;
 
@@ -358,24 +350,6 @@ ostream& operator<<(ostream& out, const inf_int& a)
 		out << a.digits[i];
 	}
 	return out;
-}
-
-void inf_int::Add(const char num, const unsigned int index)	// a의 index 자리수에 n을 더한다. 0<=n<=9, ex) a가 391일때, Add(a, 2, 2)의 결과는 411
-{
-	if (this->length < index) {
-		this->length = index;					// 길이 지정
-		this->digits.push_back(num % 10 + '0');
-	}
-	else {
-		int sum = num - '0' + this->digits[index - 1] - '0';
-		if (sum > 9) {
-			this->digits[index - 1] = sum % 10 + '0';
-			Add('1', index + 1);
-		}
-		else {
-			this->digits[index - 1] = sum + '0';
-		}
-	}
 }
 
 bool isZero(const inf_int& a) {
