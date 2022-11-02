@@ -3,7 +3,7 @@
 #include "inf_int.h"
 #include "string"
 using namespace std;
-class calculator
+class Calculator
 {
 public:
 	void examineExpression(string, string[3]);
