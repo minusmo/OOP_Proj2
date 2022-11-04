@@ -18,7 +18,7 @@
     <ClCompile Include="main.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="calculator.cpp">
+    <ClCompile Include="Calculator.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="inf_int.cpp">
@@ -26,7 +26,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="calculator.h">
+    <ClInclude Include="Calculator.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="inf_int.h">
