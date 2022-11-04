@@ -28,22 +28,54 @@ int main()
 		// cout << "g : " << g << endl;
 	}
 
+	cout << endl;
+	cout << "More tests" << endl;
 	test();
+
+	char input;
+	cout << "To close this prompt, enter anything: ";
+	cin >> input;
 
 	return 0;
 }
 
 void test() {
-	// more tests
-	inf_int h("345");
-	inf_int i("1111111111111111111111111111111111111111111111111111");
-	inf_int j("333333333333333333333333");
-	inf_int k("73755");
-	inf_int l("25555555555551111");
-	inf_int m("21111111111");
-
-	cout << "More tests" << endl;
-	cout << h - i << endl;
-	cout << j * k << endl;
-	cout << l + m << endl;
+	inf_int a("111");
+	inf_int b("2");
+	inf_int c(0);
+	inf_int d(3);
+	inf_int e(-2);
+	inf_int f(-0);
+	inf_int g(-100);
+	inf_int h("-111");
+	inf_int i(-1111);
+	cout << "111 + 2: " << a + b << endl;
+	cout << "111 * 2: " << a * b << endl;
+	cout << "111 - 2: "  << a - b << endl;
+	cout << "2 + 111: " << b + a << endl;
+	cout << "2 * 111: " << b * a << endl;
+	cout << "2 - 111: " << b - a << endl;
+	cout << "2 * 0: " << b * f << endl;
+	cout << "0 * 3: " << c * d << endl;
+	cout << "0 * -111: " << c * h << endl;
+	cout << "0 + -100: " << f + g << endl;
+	cout << "0 + 3: " << c + d << endl;
+	cout << "111 + -111: " << a + h << endl;
+	cout << "111 * -111: " << a * h << endl;
+	cout << "111 - -111: " << a - h << endl;
+	cout << "111 + 111: " << a + a << endl;
+	cout << "2 + -111: " << b + h << endl;
+	cout << "-100 + -111: " << g + h << endl;
+	cout << "-100 - -111: " << g - h << endl;
+	cout << "-100 * -111: " << g * h << endl;
+	cout << "-2 + 111: " << e + a << endl;
+	cout << "-2 - 3: " << e - d << endl;
+	cout << "111 + -2: " << a + e << endl;
+	cout << "3 + -1111: " << d + i << endl;
+	cout << "3 * -111: " << d * h << endl;
+	cout << "3 - -111: " << d - h << endl;
+	cout << "-111 + 2: " << h + b << endl;
+	cout << "0 + 0: " << c + c << endl;
+	cout << "0 * 0: " << c * f << endl;
+	cout << "0 - 0: " << c - f << endl;
 }

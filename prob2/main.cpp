@@ -1,11 +1,11 @@
 #include "inf_int.h"
-#include "calculator.h"
+#include "Calculator.h"
 #include "string"
 #include "iostream"
 
 using namespace std;
 int main() {
-	calculator calc = calculator();
+	Calculator calc = Calculator();
 	string input = "run";
 	while (1) {
 		cout << "Input: ";
@@ -19,7 +19,7 @@ int main() {
 			calc.examineExpression(input, expressions);
 			operand1 = inf_int(expressions[0].c_str());
 			operand2 = inf_int(expressions[1].c_str());
-			//cout << "operation with: " << expressions[0] << expressions[1] << expressions[2] << endl;
+
 			if (expressions[2] == "+") {
 				result = calc.add(operand1, operand2);
 			}

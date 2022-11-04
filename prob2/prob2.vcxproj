@@ -19,12 +19,12 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="calculator.cpp" />
+    <ClCompile Include="Calculator.cpp" />
     <ClCompile Include="inf_int.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="calculator.h" />
+    <ClInclude Include="Calculator.h" />
     <ClInclude Include="inf_int.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

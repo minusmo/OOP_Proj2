@@ -1,19 +1,6 @@
 #include "inf_int.h"
 
-// 
-// to be filled by students
-//
-// example :
-//
-// bool operator==(const inf_int& a , const inf_int& b)
-// {
-//     // we assume 0 is always positive.
-//     if ( (strcmp(a.digits , b.digits)==0) && a.thesign==b.thesign )
-//         return true;
-//     return false;
-// }
-//
-
+// the default constructor
 inf_int::inf_int() {
 	this->length = 1;
 	this->thesign = true;
@@ -21,9 +8,9 @@ inf_int::inf_int() {
 	this->digits.push_back('0');
 }
 
+// constructor using integer parameter
 inf_int::inf_int(int n) {
-	char buffer[100];
-
+	string buff;
 	if (n < 0) {
 		this->thesign = false;
 		n = -n;
@@ -35,7 +22,7 @@ inf_int::inf_int(int n) {
 	int i = 0;
 	while (n > 0)
 	{
-		buffer[i] = n % 10 + '0';
+		buff.push_back(n % 10 + '0');
 		n /= 10;
 		i++;
 	}
@@ -44,19 +31,12 @@ inf_int::inf_int(int n) {
 		new (this) inf_int();
 	}
 	else {
-		buffer[i] = '\0';
-
-		this->digits = string();
+		this->digits = buff;
 		this->length = i;
-
-		int j;
-		for (j = 0; j < i + 1; j++) {
-			if (buffer[j] == '\0') break;
-			this->digits.push_back(buffer[j]);
-		}
 	}
 }
 
+// constructor using const char* parameter
 inf_int::inf_int(const char* str) {
 	if (str[0] == '-') {
 		this->thesign = false;
@@ -68,13 +48,21 @@ inf_int::inf_int(const char* str) {
 	size_t strLen = strlen(str);
 
 	this->digits = string();
-	for (int i = 0; i < strLen; i++) {
-		this->digits.push_back(str[strLen - 1 - i]);
+	if (this->thesign) {
+		for (int i = 0; i < (int)strLen; i++) {
+			this->digits.push_back(str[strLen - 1 - i]);
+		}
+		this->length = (unsigned int)strLen;
 	}
-
-	this->length = (unsigned int)strLen;
+	else {
+		for (int i = 0; i < (int)strLen - 1; i++) {
+			this->digits.push_back(str[strLen - 1 - i]);
+		}
+		this->length = (unsigned int)strLen - 1;
+	}
 }
 
+// a copy constructor
 inf_int::inf_int(const inf_int& ex_inf_int) {
 	this->digits = string();
 	for (auto digit : ex_inf_int.digits) {
@@ -85,10 +73,12 @@ inf_int::inf_int(const inf_int& ex_inf_int) {
 	this->thesign = ex_inf_int.thesign;
 }
 
+// a destructor but do nothing, because we don't have any dynamically allocated member variable
 inf_int::~inf_int() {
-
+	// do nothing because we don't use dynamically allocated member variables
 }
 
+// operator= overloaded to use as copy constructor
 inf_int& inf_int::operator=(const inf_int& ex_inf_int)
 {
 	this->digits = string();
@@ -102,26 +92,29 @@ inf_int& inf_int::operator=(const inf_int& ex_inf_int)
 	return *this;
 }
 
+// operator== overloaded to check if two inf_int are the same
 bool operator==(const inf_int& a, const inf_int& b)
 {
 	// we assume 0 is always positive.
-	if ((a.digits == b.digits) && a.thesign == b.thesign)	// 부호가 같고, 절댓값이 일치해야함.
+	// absolute value should be the same and two signs should be the same,
+	if ((a.digits == b.digits) && a.thesign == b.thesign)
 		return true;
 	return false;
 }
 
+// operator!= overloaded to check if two inf_int are different
 bool operator!=(const inf_int& a, const inf_int& b)
 {
 	return !operator==(a, b);
 }
 
+// operator> overloaded to check if the first parameter is bigger than the second one
 bool operator>(const inf_int& a, const inf_int& b)
 {
-	// to be filled
-	// 절대값 비교
-	// 둘 다 양수일 경우 절댓값 비교한 것을 그대로 return
-	// 둘 다 음수일 경우 절댓값 비교의 것을 반전하여 return
-	// 부호가 다를 경우, a가 양수일 경우 b는 음수, a가 음수일 경우 b는 양수이기에 a의 부호진리값을 반환하면 됨
+	// compare absolute value
+	// when both signs are positive, return the absolutely compared result
+	// when both signs are negative, return inversed the absolutely compared result
+	// when two signs are different, return thesign of a. because there are two cases + - => true, - + => false
 	if (a == b) {
 		return false;
 	}
@@ -137,6 +130,7 @@ bool operator>(const inf_int& a, const inf_int& b)
 	}
 }
 
+// operator< overloaded to check if the first parameter is less than the second one
 bool operator<(const inf_int& a, const inf_int& b)
 {
 	if (operator>(a, b) || operator==(a, b)) {
@@ -147,11 +141,12 @@ bool operator<(const inf_int& a, const inf_int& b)
 	}
 }
 
+// operator+ overloaded to operate + with inf_int instances
 inf_int operator+(const inf_int& a, const inf_int& b)
 {
 	inf_int c;
-
-	if (a.thesign == b.thesign) {	// 이항의 부호가 같을 경우 + 연산자로 연산
+	// when two signs are the same, use addition operation
+	if (a.thesign == b.thesign) {
 		c.digits = string();
 		if (a.length < b.length) {
 			int carry = 0;
@@ -170,8 +165,7 @@ inf_int operator+(const inf_int& a, const inf_int& b)
 				carry = sum / 10;
 			}
 
-			if (carry)
-				c.digits.push_back(carry + '0');
+			if (carry) c.digits.push_back(carry + '0');
 		}
 		else {
 			int carry = 0;
@@ -190,8 +184,7 @@ inf_int operator+(const inf_int& a, const inf_int& b)
 				carry = sum / 10;
 			}
 
-			if (carry)
-				c.digits.push_back(carry + '0');
+			if (carry) c.digits.push_back(carry + '0');
 		}
 
 
@@ -200,7 +193,8 @@ inf_int operator+(const inf_int& a, const inf_int& b)
 
 		return c;
 	}
-	else {	// 이항의 부호가 다를 경우 - 연산자로 연산
+	else {
+		// when two signs are different, use subtract
 		c = b;
 		c.thesign = a.thesign;
 
@@ -208,9 +202,9 @@ inf_int operator+(const inf_int& a, const inf_int& b)
 	}
 }
 
+// operator- overloaded to operate - with inf_int instances
 inf_int operator-(const inf_int& a, const inf_int& b)
 {
-	// to be filled
 	inf_int c;
 
 	if (absLess(a, b)) {
@@ -241,6 +235,16 @@ inf_int operator-(const inf_int& a, const inf_int& b)
 				}
 				c.digits.push_back(sub + '0');
 			}
+			unsigned int zeros = 0;
+			for (unsigned int i = (unsigned int)c.digits.length() - 1; i > 0; i--) {
+				if (c.digits[i] == '0') {
+					zeros++;
+				}
+				else {
+					break;
+				}
+			}
+			c.digits = c.digits.substr(0, (unsigned int)c.digits.length() - zeros);
 
 			c.length = (unsigned int)c.digits.length();
 			if (a.thesign) {
@@ -254,14 +258,14 @@ inf_int operator-(const inf_int& a, const inf_int& b)
 		else {
 			inf_int d = b;
 			d.thesign = a.thesign;
-			c = b + d;
+			c = a + d;
 			return c;
 		}
 	}
 	else if (a.digits == b.digits) {
 		// when two numbers are the same
 		if (a.thesign == b.thesign) {
-			c = inf_int();
+			c = inf_int(0);
 		}
 		else {
 			c = inf_int(2) * a;
@@ -297,6 +301,17 @@ inf_int operator-(const inf_int& a, const inf_int& b)
 				c.digits.push_back(sub + '0');
 			}
 
+			unsigned int zeros = 0;
+			for (unsigned int i = (unsigned int)c.digits.length() - 1; i > 0; i--) {
+				if (c.digits[i] == '0') {
+					zeros++;
+				}
+				else {
+					break;
+				}
+			}
+			c.digits = c.digits.substr(0, (unsigned int)c.digits.length() - zeros);
+
 			c.length = (unsigned int)c.digits.length();
 			c.thesign = a.thesign;
 			return c;
@@ -310,9 +325,9 @@ inf_int operator-(const inf_int& a, const inf_int& b)
 	}
 }
 
+// operator* overloaded to operatr * with inf_int instances
 inf_int operator*(const inf_int& a, const inf_int& b)
 {
-	// to be filled
 	inf_int c;
 	if (isZero(a) || isZero(b)) {
 		c = inf_int();
@@ -338,15 +353,23 @@ inf_int operator*(const inf_int& a, const inf_int& b)
 	for (int k = 0; k < c.digits.length(); k++) {
 		c.digits[k] += '0';
 	}
-	if (c.digits[c.digits.length() - 1] == '0') {
-		c.digits = c.digits.substr(0, c.digits.length() - 1);
+
+	unsigned int zeros = 0;
+	for (unsigned int i = (unsigned int)c.digits.length() - 1; i > 0; i--) {
+		if (c.digits[i] == '0') {
+			zeros++;
+		}
+		else {
+			break;
+		}
 	}
+	c.digits = c.digits.substr(0, (unsigned int)c.digits.length() - zeros);
 
 	c.length = (unsigned int)c.digits.length();
 	return c;
 }
 
-
+// operator<< overloaded to operate << with inf_int instance
 ostream& operator<<(ostream& out, const inf_int& a)
 {
 	int i;
@@ -360,24 +383,7 @@ ostream& operator<<(ostream& out, const inf_int& a)
 	return out;
 }
 
-void inf_int::Add(const char num, const unsigned int index)	// a의 index 자리수에 n을 더한다. 0<=n<=9, ex) a가 391일때, Add(a, 2, 2)의 결과는 411
-{
-	if (this->length < index) {
-		this->length = index;					// 길이 지정
-		this->digits.push_back(num % 10 + '0');
-	}
-	else {
-		int sum = num - '0' + this->digits[index - 1] - '0';
-		if (sum > 9) {
-			this->digits[index - 1] = sum % 10 + '0';
-			Add('1', index + 1);
-		}
-		else {
-			this->digits[index - 1] = sum + '0';
-		}
-	}
-}
-
+// returns true if the inf_int is 0 else returns false
 bool isZero(const inf_int& a) {
 	if (a.length != 1) return false;
 	if (a.thesign != true) return false;
@@ -385,6 +391,7 @@ bool isZero(const inf_int& a) {
 	return true;
 }
 
+// returns true if the first inf_int is absolutely less than the second one else return false
 bool absLess(const inf_int& a, const inf_int& b) {
 	if (a.length < b.length) {
 		return true;
